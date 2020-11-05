@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<link rel="icon" href="<%= BASE_URL %>logo.ico">
+		<link rel="stylesheet" href="./static/css/public.css">
+		<title>云控智能用电管理服务平台</title>
+	</head>
+
+	<body>
+		<div id="tsText" style="overflow: hidden;display:none;">
+			<p style="text-align: center;line-height: 60px;font-size: 20px;margin: 5% 0 2% 0;">请用大于iE9以上的浏览器打开，为更好的体验功能!
+			</p>
+			<!-- <img style="display: block;margin: auto;" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1589432918728&di=85ca5d09afa7f98bd0c9569078efd6dc&imgtype=0&src=http%3A%2F%2Fwx1.sinaimg.cn%2Flarge%2F814268e3gy1fggi61gpqwj20c80c8gm9.jpg" alt=""> -->
+		</div>
+		<noscript>
+			<strong>We're sorry but cli-3 doesn't work properly without JavaScript enabled. Please enable it
+				tocontinue.</strong>
+		</noscript>
+		<div id="app"></div>
+
+	</body>
+	<script>
+		function myBrowser() {
+			var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+			var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
+			var isIE = userAgent.indexOf("compatible") > -1
+				&& userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器
+			var isEdge = userAgent.indexOf("Edge") > -1; //判断是否IE的Edge浏览器
+			var isFF = userAgent.indexOf("Firefox") > -1; //判断是否Firefox浏览器
+			var isSafari = userAgent.indexOf("Safari") > -1
+				&& userAgent.indexOf("Chrome") == -1; //判断是否Safari浏览器
+			var isChrome = userAgent.indexOf("Chrome") > -1
+				&& userAgent.indexOf("Safari") > -1; //判断Chrome浏览器
+			if (isIE) {
+				var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+				reIE.test(userAgent);
+				var fIEVersion = parseFloat(RegExp["$1"]);
+				if (fIEVersion < 9) {
+					document.getElementById('tsText').style.display = "block";
+					document.getElementById('app').style.display = "none";
+				}
+			}
+		}
+		// myBrowser()
+	</script>
+
+</html>
