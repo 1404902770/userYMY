@@ -441,6 +441,7 @@ export default {
     // 关闭绑定loading
     handleClosebind() {
       this.dialogVisible2 = false;
+      this.getList(1);
     },
 
     // 判断已选电箱计数 和 列表数据想对比 - 给出已选的样式打钩

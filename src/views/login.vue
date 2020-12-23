@@ -193,7 +193,7 @@ export default {
                     localStorage.setItem("nick", res.data.data.nick); // 昵称
                     localStorage.setItem("himg", res.data.data.himg); // 户头像
                     ElementUI.Loading.service({}).close();
-                    _this.socket();
+                    // _this.socket();
                     _this.$router.push("/home");
                   }, 1000);
                 } else if (res.data.code == 5) {

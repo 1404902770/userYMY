@@ -273,7 +273,7 @@ export default {
         },
         {
           oneTitle: "能耗波动",
-          imgSrc: require("../../public/static/images/波动.png"),
+          imgSrc: require("../../public/static/images/bodong.png"),
           twoTitle: [
             // {
             //   title: "电量波动",
@@ -320,11 +320,11 @@ export default {
               path: "/lineLeakageCurrent"
             },
             {
-              title: "总功率波动",
+              title: "三相总功率波动",
               path: "/lineThreePhasePower"
             },
             {
-              title: "总无功功率波动",
+              title: "三相总无功功率波动",
               path: "/lineThreephaseNoPower"
             }
           ]

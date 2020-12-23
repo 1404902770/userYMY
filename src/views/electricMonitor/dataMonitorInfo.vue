@@ -113,14 +113,16 @@
   
   <script>
 import charts from "../../components/echars";
-import copyright from "../../components/copyright";
+// import copyright from "../../components/copyright";
+const copyright = () => import("../../components/copyright");
+
 import Qs from "qs";
 import $ from "jquery";
 export default {
   name: "dataMonitorInfo",
   components: {
     charts,
-    copyright
+    copyright: copyright
   },
   data() {
     return {
@@ -226,135 +228,6 @@ export default {
 
       }
     },
-    // 获取echars瞬时数据
-    linkEhars() {
-      // let types = "post";
-      // let url = this.urla + "/push/mach/duqushunshi";
-      // let data = {
-      //   uid: localStorage.getItem("uid"),
-      //   nid: this.nid,
-      //   aa: this.fitem.mid
-      // };
-      // this.myAjax(types, url, data, res => {
-      //   if (res.data.code == 89) {
-      //     this.$message.warning("设备处于设置状态");
-      //   } else if (res.data.code == 111) {
-      //     this.$message.warning("设备不在线");
-      //   } else if (res.data.code == "104") {
-      let _this = this;
-      if (_this.dialogVisible1) {
-        let n = 0;
-        let interval = setInterval(function () {
-          n++;
-          if (n < 10) {
-            _this.readEhars();
-          } else if (n < 30) {
-            if (n % 3 == 0) {
-              _this.readEhars();
-            }
-          } else if (n < 60) {
-            if (n % 5 == 0) {
-              _this.readEhars();
-            }
-          } else if (n < 360) {
-            if (n % 10 == 0) {
-              _this.readEhars();
-            }
-          } else {
-            clearInterval(interval);
-          }
-        }, 1000);
-      }
-      // }
-      // });
-    },
-    // 读取echars瞬时数据
-    readEhars() {
-      let instance = this.$axios.create();
-      let data = {
-        uid: localStorage.getItem("uid"),
-        nid: this.nid,
-        aa: this.fitem.mid
-      };
-      instance({
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        method: "post",
-        url: this.urlb + "/api/mach/duqushunshi",
-        data: Qs.stringify(data)
-      }).then(res => {
-        // console.log(res)
-        // console.log(this.$store.state.socketData)
-
-        // vv: 226.4
-        // bb: 0.001
-        // aa: 0.731
-        // kk: 0.1521
-        // kr: 0.0155
-        // tt: 42
-        // lsp: 0.1518
-        // ld: 0.002
-        // sta: 0
-
-        // vv1: 225.1
-        // vv2: 224.4
-        // vv3: 220.1
-        // bb: 0.001
-        // aa1: 0
-        // aa2: 1.647
-        // aa3: 1.719
-        // kk1: 0
-        // kk2: 0.2767
-        // kk3: 0.3065
-        // kv1: 0
-        // kv2: 0.2432
-        // kv3: 0.2152
-        // kz: 0.5833
-        // kvz: 0.4585
-        // tt: 47
-        // lsp: 4.4081
-        // ld: 0
-        // sta: 0
-        // stb: 0
-        // stc: 0
-
-
-        // if (res.data.type == 1) {
-        //   (this.echarsOption1[0].lineName =
-        //     res.data.info.name + "-" + res.data.info.local + "-" + res.data.aa),
-        //     this.echarsOption1[0].times.push(
-        //       new Date(res.data.time * 1000).Format("hh:mm:ss")
-        //     );
-        //   this.echarsOption1[0].dy.push(res.data.data.vv);
-        //   this.echarsOption1[0].dl.push(res.data.data.daa);
-        //   this.echarsOption = this.echarsOption1;
-        // } else {
-        //   (this.echarsOption2[0].lineName =
-        //     res.data.info.name + "-" + res.data.info.local + "-" + res.data.aa),
-        //     this.echarsOption2[0].times.push(
-        //       new Date(res.data.time * 1000).Format("hh:mm:ss")
-        //     );
-        //   this.echarsOption2[0].dy.push(res.data.data.vv1);
-        //   this.echarsOption2[0].dl.push(res.data.data.aa1);
-        //   (this.echarsOption2[1].lineName =
-        //     res.data.info.name + "-" + res.data.info.local + "-" + res.data.aa),
-        //     this.echarsOption2[1].times.push(
-        //       new Date(res.data.time * 1000).Format("hh:mm:ss")
-        //     );
-        //   this.echarsOption2[1].dy.push(res.data.data.vv2);
-        //   this.echarsOption2[1].dl.push(res.data.data.aa2);
-        //   (this.echarsOption2[2].lineName =
-        //     res.data.info.name + "-" + res.data.info.local + "-" + res.data.aa),
-        //     this.echarsOption2[2].times.push(
-        //       new Date(res.data.time * 1000).Format("hh:mm:ss")
-        //     );
-        //   this.echarsOption2[2].dy.push(res.data.data.vv3);
-        //   this.echarsOption2[2].dl.push(res.data.data.aa3);
-        //   this.echarsOption = this.echarsOption2;
-        // }
-      });
-    }
   },
   computed: {
     count() {

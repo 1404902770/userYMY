@@ -20,10 +20,10 @@
           type="primary"
           @click="isBind('addEditsData')"
         >确 定</el-button>
-        <el-button
+        <!-- <el-button
           type="primary"
           @click="lookeq"
-        >查 看</el-button>
+        >查 看</el-button> -->
         <el-button
           type="primary"
           @click="back"
@@ -114,7 +114,7 @@
           ></el-table-column>
         </el-table>
 
-        <div class="showinfo">
+        <!-- <div class="showinfo">
           <template v-for="(item,index) in showlist">
             <p
               class="detail"
@@ -135,7 +135,7 @@
           :with-header="false"
         >
           <span>我来啦!</span>
-        </el-drawer>
+        </el-drawer> -->
 
       </el-main>
       <!-- 尾部 -->
@@ -166,6 +166,7 @@ export default {
     return {
       // 列表数据
       tableData: [],
+      tableData1: [],
       // 已选择电箱数据
       multipleSelection: [],
       // 已选电箱计数
@@ -185,15 +186,18 @@ export default {
         total: null // 共多少页
       },
 
+      yixuan: [],
+
       showlist: []
     };
   },
   methods: {
     // 初始化获取 - 已选电箱计数
     getSelectionBoxCount(page) {
-      let arr = this.user.list.split(",");
-
-      arr.forEach(val1 => {
+      // let arr = this.user.list.split(",");
+      this.yixuan = this.user.list.split(",");
+      // arr.forEach(val1 => {
+      this.yixuan.forEach(val1 => {
         this.tableData.forEach(val2 => {
           if (val1 == val2.id) {
             this.selectionBoxCount.push(val2);
@@ -219,7 +223,8 @@ export default {
       let url = this.urlb + "/api/pc/zhanshisuoyuodianxiang";
       let data = {
         uid: localStorage.getItem("uid"),
-        page: Number(page) - 1
+        page: Number(page),
+        size: 13
       };
       this.myAjax(type, url, data, res => {
 
@@ -233,20 +238,43 @@ export default {
 
         this.getSelectionBoxCount();
       });
+
+      let type1 = "post";
+      let url1 = this.urlb + "/api/pc/zhanshisuoyuodianxiang";
+      let data1 = {
+        uid: localStorage.getItem("uid"),
+        page: Number(page),
+        size: 1000
+      };
+      this.myAjax(type1, url1, data1, res => {
+        this.tableData1 = res.data.data;
+
+        this.tableData1.forEach(val => {
+          this.yixuan.forEach(value => {
+            if (val.id == value) {
+              this.showlist.push(val)
+            }
+          })
+        })
+      });
     },
     // 列表选择 - √
     handleSelectionChange(val) {
-      this.showlist = val
+      // this.showlist = val
+      val.forEach(value => {
+        this.showlist.push(value)
+      })
+
       // val.forEach(val => {
       //   this.showlist.push(val)
       // })
-      console.log(this.showlist)
+      // console.log(this.showlist)
 
-      let a = new Set(this.zlist);
-      let b = new Set(val);
-      let he = new Set([...b].filter(x => !a.has(x)));
-      this.multipleSelection = Array.from(he);
-      // console.log(this.multipleSelection)
+      // 之前用法
+      // let a = new Set(this.zlist);
+      // let b = new Set(val);
+      // let he = new Set([...b].filter(x => !a.has(x)));
+      // this.multipleSelection = Array.from(he);
     },
     // 分页 - 当前页数
     handleCurrentChange(val) {
@@ -255,9 +283,23 @@ export default {
 
     // 管理员绑定设备接口
     bingEqList() {
-      this.multipleSelection.forEach(val => {
-        this.selectIdList.push(val.id);
+      // 之前用法
+      // this.multipleSelection.forEach(val => {
+      //   this.selectIdList.push(val.id);
+      // });
+
+      this.showlist.forEach(val => {
+        this.selectIdList.push(val.nid + val.id);
       });
+
+      for (let i = 0; i < this.selectIdList.length; i++) {
+        for (let j = i + 1; j < this.selectIdList.length; j++) {
+          if (this.selectIdList[i] == this.selectIdList[j]) {
+            this.selectIdList.splice(j, 1)
+            j--;
+          }
+        }
+      }
       // console.log(this.multipleSelection);
       // console.log(this.selectIdList);
 
@@ -290,6 +332,7 @@ export default {
 
     // 确定 - 绑定设备
     isBind(addEditsData) {
+
       this.bingEqList();
     },
 
@@ -301,12 +344,19 @@ export default {
     // 返回按钮
     back() {
       this.$router.go(-1);
+      sessionStorage.clear('user')
     }
   },
 
-  mounted() { },
+  mounted() {
+    this.user = JSON.parse(sessionStorage.getItem('user'))
+    // this.getSelectionBoxCount()
+  },
   created() {
-    this.user = this.$route.params;
+    // this.user = this.$route.params;
+    if (this.$route.params.nick) {
+      sessionStorage.setItem('user', JSON.stringify(this.$route.params))
+    }
     this.geteqList(1);
   }
 };

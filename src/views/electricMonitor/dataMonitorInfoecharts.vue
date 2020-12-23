@@ -155,60 +155,78 @@ export default {
       // 漏电流数据
       listloudianliu: [],
 
-      time: []
+      time: [],
+
+      timer: '',
+
+      num: 0
     };
   },
   watch: {
     count(newCount, oldCount) {
       // console.log(newCount, oldCount)
       if (newCount.type == "shunshi") {
-        if (newCount.info.leib == 1) {
+        this.num = 0
+        if (newCount.info.nid == this.nid && newCount.info.aa == this.fitem.mid) {
+          if (newCount.info.leib == 1) {
 
-          this.listdianya.push(newCount.data.vv);
-          // this.listdianliu2=[]
-          // this.listdianliu3=[]
+            this.listdianya.push(newCount.data.vv);
+            // this.listdianliu2=[]
+            // this.listdianliu3=[]
 
-          this.listdianliubianhua.push(newCount.data.bb);
+            this.listdianliubianhua.push(newCount.data.bb);
 
-          this.listdianliu.push(newCount.data.aa);
-          // this.listdianliu2=[]
-          // this.listdianliu3=[]
+            this.listdianliu.push(newCount.data.aa);
+            // this.listdianliu2=[]
+            // this.listdianliu3=[]
 
-          this.listyougong.push(newCount.data.kk);
-          // this.listyougong2=[]
-          // this.listyougong3=[]
+            this.listyougong.push(newCount.data.kk);
+            // this.listyougong2=[]
+            // this.listyougong3=[]
 
-          this.listwugong.push(newCount.data.kr);
-          // this.listwugong2=[]
-          // this.listwugong3=[]
+            this.listwugong.push(newCount.data.kr);
+            // this.listwugong2=[]
+            // this.listwugong3=[]
 
-          this.listwendu.push(newCount.data.tt);
-          this.listyougongpingjun.push(newCount.data.lsp);
-          this.listloudianliu.push(newCount.data.ld * 1000);
-        } else {
+            this.listwendu.push(newCount.data.tt);
+            this.listyougongpingjun.push(newCount.data.lsp);
+            this.listloudianliu.push(newCount.data.ld * 1000);
 
-          this.listdianya.push(newCount.data.vv1);
-          this.listdianya2.push(newCount.data.vv2);
-          this.listdianya3.push(newCount.data.vv3);
+            this.time.push(
+              new Date(
+                newCount.time * 1000
+              ).Format('hh:mm:ss')
+            );
+          } else {
 
-          this.listdianliu.push(newCount.data.aa1);
-          this.listdianliu2.push(newCount.data.aa2);
-          this.listdianliu3.push(newCount.data.aa3);
+            this.listdianya.push(newCount.data.vv1);
+            this.listdianya2.push(newCount.data.vv2);
+            this.listdianya3.push(newCount.data.vv3);
 
-          this.listyougong.push(newCount.data.kk1);
-          this.listyougong2.push(newCount.data.kk2);
-          this.listyougong3.push(newCount.data.kk3);
+            this.listdianliu.push(newCount.data.aa1);
+            this.listdianliu2.push(newCount.data.aa2);
+            this.listdianliu3.push(newCount.data.aa3);
 
-          this.listwugong.push(newCount.data.kv1);
-          this.listwugong2.push(newCount.data.kv2);
-          this.listwugong3.push(newCount.data.kv3);
+            this.listyougong.push(newCount.data.kk1);
+            this.listyougong2.push(newCount.data.kk2);
+            this.listyougong3.push(newCount.data.kk3);
 
-          this.listwendu.push(newCount.data.tt);
-          this.listyougongpingjun.push(newCount.data.lsp);
-          this.listloudianliu.push(newCount.data.ld * 1000);
-          this.listdianliubianhua.push(newCount.data.bb);
+            this.listwugong.push(newCount.data.kv1);
+            this.listwugong2.push(newCount.data.kv2);
+            this.listwugong3.push(newCount.data.kv3);
+
+            this.listwendu.push(newCount.data.tt);
+            this.listyougongpingjun.push(newCount.data.lsp);
+            this.listloudianliu.push(newCount.data.ld * 1000);
+            this.listdianliubianhua.push(newCount.data.bb);
+
+            this.time.push(
+              new Date(
+                newCount.time * 1000
+              ).Format('hh:mm:ss')
+            );
+          }
         }
-
         // if (this.time.length > 5) {
         //   this.time.shift()
         //   this.time.push(
@@ -227,14 +245,6 @@ export default {
         //     new Date().getSeconds()
         //   );
         // }
-
-        this.time.push(
-          new Date().getHours() +
-          ":" +
-          new Date().getMinutes() +
-          ":" +
-          new Date().getSeconds()
-        );
       }
       this.getStudent1();
       this.getStudent2();
@@ -260,34 +270,10 @@ export default {
       });
     },
 
-    // 获取echars瞬时数据
-    // linkEhars() {
-    //   let _this = this;
-    //   let n = 0;
-    //   this.readEhars()
-    //   // this.interval = setInterval(function () {
-    //   //   n++;
-    //   //   if (n < 10) {
-    //   //     _this.readEhars();
-    //   //   } else if (n < 30) {
-    //   //     if (n % 3 == 0) {
-    //   //       _this.readEhars();
-    //   //     }
-    //   //   } else if (n < 60) {
-    //   //     if (n % 5 == 0) {
-    //   //       _this.readEhars();
-    //   //     }
-    //   //   } else if (n < 360) {
-    //   //     if (n % 10 == 0) {
-    //   //       _this.readEhars();
-    //   //     }
-    //   //   } else {
-    //   //     clearInterval(this.interval);
-    //   //   }
-    //   // }, 1000);
-    // },
     // 读取echars瞬时数据
     readEhars() {
+      // console.log('123')
+      // console.log(this.num)
       let instance = this.$axios.create();
       let data = {
         uid: localStorage.getItem("uid"),
@@ -978,6 +964,51 @@ export default {
           message: '刷新成功',
           type: 'success'
         });
+      } else if (this.listdianya.length >= 19) {
+
+        // 电压数据
+        this.listdianya = []
+        // 三相电压
+        this.listdianya2 = []
+        this.listdianya3 = []
+
+        // 电流变化数据
+        this.listdianliubianhua = []
+
+        // 电流数据
+        this.listdianliu = []
+        // 三相电流
+        this.listdianliu2 = []
+        this.listdianliu3 = []
+
+        // 有功功率数据
+        this.listyougong = []
+        // 三相有功功率数据
+        this.listyougong2 = []
+        this.listyougong3 = []
+
+        // 无功功率数据
+        this.listwugong = []
+        // 三相无功功率数据
+        this.listwugong2 = []
+        this.listwugong3 = []
+
+        // 温度数据
+        this.listwendu = []
+        // 有功功率平均值
+        this.listyougongpingjun = []
+        // 漏电流数据
+        this.listloudianliu = []
+
+        this.time = []
+
+        this.readEhars()
+        this.$message({
+          showClose: true,
+          message: '刷新成功',
+          type: 'success'
+        });
+
       } else {
         this.$message({
           showClose: true,
@@ -1029,6 +1060,18 @@ export default {
     this.getStudent6();
     this.getStudent7();
     this.getStudent8();
+
+    this.timer = setInterval(() => {
+      this.num++
+      //  if (this.listdianya.length < 20 && this.listdianya.length != 0 || this.listdianya.length == 0) {
+      if (this.listdianya.length < 20 && this.listdianya.length != 0) {
+        if (this.num == 5) {
+          // console.log('')
+          this.readEhars()
+          this.num = 0
+        }
+      }
+    }, 1000)
   },
 
   created() {
@@ -1048,7 +1091,9 @@ export default {
 
   },
   destroyed() {
+    this.closesocket()
     clearInterval(this.interval);
+    clearInterval(this.timer);
   }
 };
 </script>

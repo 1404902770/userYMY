@@ -1,6 +1,8 @@
 <template>
   <div id="app">
+    <!-- <keep-alive> -->
     <router-view />
+    <!-- </keep-alive> -->
   </div>
 </template>
 
@@ -10,7 +12,7 @@ export default {
   // 监听报警信息
   watch: {
     count(newCount, oldCount) {
-      // console.log(newCount,oldCount)
+      // console.log(newCount, oldCount)
       if (newCount.type == "jing") {
         this.$notify.warning({
           title:

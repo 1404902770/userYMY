@@ -1430,10 +1430,13 @@ export default {
 
       let two = [];
       // 求合集
+      console.log(this.one)
+
       this.manyLine = this.one.filter(num => {
         return this.checkedCities.indexOf(num.mid) != -1;
       });
 
+      console.log(this.manyLine)
       // 最大值
       // console.log(Math.max(...this.manyLine[0].ele))
 

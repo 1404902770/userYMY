@@ -239,7 +239,7 @@
           @current-change="handleCurrentChange"
           :current-page.sync="fenYe.currentPage"
           layout="total, prev, pager, next, jumper"
-          :page-size="15"
+          :page-size="13"
           :total="fenYe.total"
         ></el-pagination>
       </el-footer>
@@ -252,11 +252,12 @@
   <script>
 import ElementUI from "element-ui";
 import Qs from "qs";
-import copyright from "../../components/copyright";
+// import copyright from "../../components/copyright";
+const copyright = () => import("../../components/copyright");
 export default {
   name: "dataMonitor",
   components: {
-    copyright
+    copyright: copyright
   },
   data() {
     return {

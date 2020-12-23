@@ -1565,18 +1565,6 @@ export default {
     this.getStudent7();
     this.getStudent8();
 
-    // setInterval(() => {
-    //   this.$store.commit('setsocketData', {
-    //     type: 'jing',
-    //     nid: '34474c3430354c4130365157', // 设备16进制
-    //     mzname: '牛羊肉—邢玉芬副食', // 设备名称
-    //     jianzhu: '牛羊肉片', // 线路名称
-    //     aa: '08', // 线路
-    //     desc: '电流报警', // 报警类型
-    //     beizhu: '当前电流处于过流报警值上,当前电流为:81.176A,所设电流预警值为:50A', // 报警提示文字
-    //     time: '1600766564' // 时间
-    //   })
-    // }, 2000)
   },
   // 初始化 - 数据 - 在mounted前
   created() {

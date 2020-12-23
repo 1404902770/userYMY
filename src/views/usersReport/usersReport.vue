@@ -1,7 +1,7 @@
 <template>
   <div
     class="usersreport"
-    v-loading="true"
+    v-loading="false"
     element-loading-text="该功能正在研发，本月底上线"
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(0, 0, 0, 0.6)"
@@ -420,7 +420,7 @@ export default {
   },
 
   created() {
-    // this.getOptions()
+    this.getOptions()
   }
 
 }
