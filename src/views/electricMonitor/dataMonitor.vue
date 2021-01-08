@@ -79,42 +79,12 @@
           <div class="cright">
             <p>
               <span class="s1">电箱名称:</span>
-              <span class="s2">[{{ getString1(hexCharCodeToStr(item.nid)) }}]{{ item.mzname }}</span>
+              <span class="s2">{{ item.mzname }}</span>
+              <!-- <span class="s2">[{{ getString1(hexCharCodeToStr(item.nid)) }}]{{ item.mzname }}</span> -->
             </p>
             <p>
-              <span class="s1">设备型号:</span>
-              <span
-                class="s2"
-                v-if="item.type == 0"
-              >[F]总路单相</span>
-              <span
-                class="s2"
-                v-if="item.type == 1"
-              >[F]总路三相</span>
-              <span
-                class="s2"
-                v-if="item.type == 10"
-              >[F]支路单相</span>
-              <span
-                class="s2"
-                v-if="item.type == 11"
-              >[F]支路三相</span>
-              <span
-                class="s2"
-                v-if="item.type == 80"
-              >[T]总路单相</span>
-              <span
-                class="s2"
-                v-if="item.type == 81"
-              >[T]总路三相</span>
-              <span
-                class="s2"
-                v-if="item.type == 90"
-              >[T]支路单相</span>
-              <span
-                class="s2"
-                v-if="item.type == 91"
-              >[T]支路三相</span>
+              <span class="s1">分机台数:</span>
+              <span class="s2">{{item.fen+'台'}}</span>
             </p>
             <p>
               <span class="s1">安装地址:</span>
@@ -122,7 +92,7 @@
             </p>
             <p>
               <span class="s1">安装时间:</span>
-              <span class="s2">{{ item.anzhuang }}</span>
+              <span class="s2">{{ item.jihuo }}</span>
             </p>
             <i
               class="el-icon-loading zt"
@@ -142,7 +112,7 @@
           stripe
           style="width: 100%"
         >
-          <el-table-column
+          <!-- <el-table-column
             prop="nid"
             show-overflow-tooltip
             label="设备号"
@@ -152,7 +122,7 @@
             <template slot-scope="scope">
               <span>{{ hexCharCodeToStr(scope.row.nid) }}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
 
           <el-table-column
             prop="mzname"
@@ -299,12 +269,12 @@ export default {
         page: Number(page) - 1
       };
       this.myAjax(type, url, data, res => {
-        // console.log(res)
+        console.log(res)
         this.tableData = res.data.data;
         this.fenYe.total = res.data.total;
         for (let i = 0; i < this.tableData.length; i++) {
-          this.tableData[i].anzhuang = new Date(
-            this.tableData[i].anzhuang * 1000
+          this.tableData[i].jihuo = new Date(
+            this.tableData[i].jihuo * 1000
           ).Format("yy-MM-dd hh:mm:ss");
         }
       });

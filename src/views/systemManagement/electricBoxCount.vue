@@ -254,7 +254,8 @@ export default {
       let url = this.urlb + "/api/pc/zhanshisuoyuodianxiang";
       let data = {
         uid: localStorage.getItem("uid"),
-        page: Number(page) - 1
+        page: Number(page) - 1,
+        size: 13,
       };
       this.myAjax(type, url, data, res => {
         this.tableData = res.data.data;
